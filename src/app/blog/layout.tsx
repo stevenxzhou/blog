@@ -1,4 +1,5 @@
 import SideNav from "@/app/ui/components/sidenav";
+import { connectToDB } from "../lib/data";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
