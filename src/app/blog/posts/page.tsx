@@ -1,10 +1,26 @@
+'use client';
+
 import Post from '@/app/ui/components/posts/Post';
-import { getPosts } from '@/app/lib/data';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
-export default async function Page() {
+export default function Page() {
+  type PostType = {
+    id: string;
+    title: string;
+    content: string;
+    date: string;
+  };
 
-  const posts = await getPosts();
+  const [posts, setPosts] = useState<PostType[]>([]);
+
+  useEffect(() => {
+    fetch('/api/posts').then((res) => {
+      return res.json();
+    }).then((data)=> {
+      setPosts(data.posts);
+    })
+  }, [])
 
   return (
     <>
