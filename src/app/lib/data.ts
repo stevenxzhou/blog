@@ -1,27 +1,12 @@
-import { createClient, sql } from '@vercel/postgres';
-
-export async function connectToDB() {
-
-    const client = createClient();
-
-    await client.connect();
-
-    try {
-
-        if (client) {
-            return client;
-        }
-    } catch (error) {
-        console.log(error);
-    }
-
-}
+import { neon } from '@neondatabase/serverless';
 
 export async function getPosts() {
 
+    const sql = neon(`${process.env.DATABASE_URL}`);
+
     try {
         const posts = await sql`select * from posts limit 2`;
-        return posts.rows;
+        return posts;
     } catch (error) {
         
     }
